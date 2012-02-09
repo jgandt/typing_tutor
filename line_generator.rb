@@ -1,12 +1,14 @@
 module LineGenerator
 
   def self.line
-    CharacterSet.new.generate_set
+    chr_set = CharacterSet.new
+    chr_set.generate_set
   end
 
   class CharacterSet
     attr_reader :keys
     attr_accessor :count
+    attr_accessor :seed
 
     def initialize
       @finger = (0..7).to_a
@@ -17,9 +19,9 @@ module LineGenerator
       @finger[3] = ['f', '4', '$', '5', '%']
 
       @finger[4] = ['j', '6', '^', '7', '&']
-      @finger[5] = ['k', '8', '*', ',', '<']
-      @finger[6] = ['l', '9', '(', '.', '>']
-      @finger[7] = [';', '0', ')', ':', '"', "'", '/', '?' '{', '[', '}', ']', '-', '_', '=', '+', '|', "\\" ]
+      @finger[5] = ['k', '8', '(', '9', '*', ',', '<']
+      @finger[6] = ['l', '0', ')', '.', '>']
+      @finger[7] = [';', ':', '"', "'", '/', '?' '{', '[', '}', ']', '-', '_', '=', '+', '|', '\\' ]
 
       @random_index = Random.rand(8)
       @keys = @finger[@random_index]
@@ -31,7 +33,12 @@ module LineGenerator
       generated_set = ''
 
       @count.times do |i|
-        generated_set += @finger[@random_index][Random.rand(@finger[@random_index].size)]
+        if i % 2 == 0
+          append_character = @finger[@random_index][0]
+        else
+          append_character = @finger[@random_index][1 + Random.rand(@finger[@random_index].size - 1)]
+        end
+        generated_set += append_character
       end
       generated_set
     end
