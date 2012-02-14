@@ -1,3 +1,5 @@
+require 'yaml'
+
 module LineGenerator
 
   def self.line
@@ -13,6 +15,9 @@ module LineGenerator
     def initialize
       @finger = (0..7).to_a
 
+      @finger = YAML::load(File.open( 'finger_key_mapping.yml') )
+      
+=begin
       @finger[0] = ['a', '~', '`', '1', '!']
       @finger[1] = ['s', '2', '@']
       @finger[2] = ['d', '3', '#']
@@ -21,15 +26,18 @@ module LineGenerator
       @finger[4] = ['j', '6', '^', '7', '&']
       @finger[5] = ['k', '8', '(', '9', '*', ',', '<']
       @finger[6] = ['l', '0', ')', '.', '>']
-      @finger[7] = [';', ':', '"', "'", '/', '?' '{', '[', '}', ']', '-', '_', '=', '+', '|', '\\' ]
+      @finger[7] = [';', ':', '{', '[', '}', ']', '-', '_' ]
+      @finger[8] = [';', ':', '/', '?', '=', '+', '|', '\\' ]
+      @finger[9] = [';', ':', '"', "'", '/', '?', '-', '_', '{', '[', '}', ']', '=', '+', '|', '\\' ]
+=end
 
-      @random_index = Random.rand(8)
+      @random_index = Random.rand(@finger.size)
       @keys = @finger[@random_index]
     end
 
     def generate_set
-      @count = 15
-      @count = 25 if @random_index == 7
+      @count = 16
+      @count = 25 if @random_index == 9
       generated_set = ''
 
       @count.times do |i|
