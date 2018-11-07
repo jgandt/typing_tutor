@@ -1,9 +1,9 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    commander (4.0.7)
-      highline (~> 1.5.0)
-    highline (1.5.2)
+    commander (4.4.7)
+      highline (~> 2.0.0)
+    highline (2.0.0)
 
 PLATFORMS
   ruby
@@ -11,3 +11,6 @@ PLATFORMS
 DEPENDENCIES
   commander
   highline
+
+BUNDLED WITH
+   1.16.3
